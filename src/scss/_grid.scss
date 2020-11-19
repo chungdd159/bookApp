@@ -1,0 +1,113 @@
+// for mobile
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.col {
+  padding: 0 15px;
+}
+
+.ex-sm {
+  flex: 100%;
+  max-width: 100%;
+}
+
+$numbercols: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+
+// small device >576px
+@media (min-width: 576px) {
+  @each $col in $numbercols {
+    .sm-#{$col} {
+      flex: percentage($col/12);
+      max-width: percentage($col/12);
+    }
+    .sm-o-#{$col} {
+      margin-left: percentage($col/12);
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  @each $col in $numbercols {
+    .md-#{$col} {
+      flex: percentage($col/12);
+      max-width: percentage($col/12);
+    }
+    .md-o-#{$col} {
+      margin-left: percentage($col/12);
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  @each $col in $numbercols {
+    .lg-#{$col} {
+      flex: percentage($col/12);
+      max-width: percentage($col/12);
+    }
+    .lg-o-#{$col} {
+      margin-left: percentage($col/12);
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  @each $col in $numbercols {
+    .xl-#{$col} {
+      flex: percentage($col/12);
+      max-width: percentage($col/12);
+    }
+    .xl-o-#{$col} {
+      margin-left: percentage($col/12);
+    }
+  }
+}
+
+@media (min-width: 1731px) {
+  @each $col in $numbercols {
+    .xxl-#{$col} {
+      flex: percentage($col/12);
+      max-width: percentage($col/12);
+    }
+    .xxl-o-#{$col} {
+      margin-left: percentage($col/12);
+    }
+  }
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}

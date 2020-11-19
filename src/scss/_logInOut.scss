@@ -1,0 +1,37 @@
+.form-container {
+  margin: 6rem auto 0;
+  max-width: 700px;
+  border: 1px solid rgb(212, 210, 210);
+  color: #3c3c3c;
+  padding: 50px;
+  border-radius: 10px;
+  background: #fff;
+
+  .form-title {
+    margin-bottom: 50px;
+    font-weight: 500;
+  }
+
+  .form-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+
+    .form-control {
+      height: 50px;
+      padding: 0 50px;
+      border-radius: 8px;
+      outline: none;
+      border: 1px solid #e3e3e3;
+      font-size: 16px;
+    }
+
+    .fas {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-55%);
+    }
+  }
+}

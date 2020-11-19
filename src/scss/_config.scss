@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800&display=swap');
+
+/*Basic reset*/
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/*Custom properties*/
+
+$body-font: 'Montserrat', sans-serif;
+$big-font-size: 3.2rem;
+$h2-font-size: 2rem;
+$normal-font-size: 1.5rem;
+$primary-color: #4070f4;
+$secondary-color: #0e2431;
+$font-semi: 600;
+
+@media (min-width: 768px) {
+  $big-font-size: 5rem;
+  $h2-font-size: 3.2rem;
+  $normal-font-size: 2rem;
+}
+
+html {
+  font-size: 10px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $body-font;
+  font-size: $h2-font-size;
+  color: $secondary-color;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+p {
+  line-height: 1.8;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+textarea {
+  resize: none;
+  font-family: $body-font;
+}
+
+.section-title {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: $big-font-size;
+  font-weight: $font-semi;
+  color: $primary-color;
+  margin-bottom: 3rem;
+  border-bottom: 4px solid $primary-color;
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  cursor: pointer;
+  padding: 1.25rem 4rem;
+  font-size: $normal-font-size;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-weight: $font-semi;
+  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+  background-size: 200%;
+  background-position: left;
+  transition: 0.5s ease;
+  overflow: hidden;
+}
+
+.mb-3 {
+  margin-bottom: 30px;
+}
+
+.mt-3 {
+  margin-top: 30px;
+}
+
+.btn-primary {
+  background: #4070f4;
+}
+// .btn {
+//   span {
+//     position: absolute;
+//     background: #fff;
+//     border-radius: 50%;
+//     pointer-events: none;
+//     transform: translate(-50%, -50%);
+//     animation: ripples 0.8s linear infinite;
+//   }
+// }
+
+// //animate//
+
+// @keyframes ripples {
+//   0% {
+//     width: 0px;
+//     height: 0px;
+//     opacity: 0.5;
+//   }
+//   100% {
+//     width: 500px;
+//     height: 500px;
+//     opacity: 0;
+//   }
+// }
+
+.alert {
+  margin: 3rem auto 0;
+  max-width: 700px;
+  border: 1px solid rgb(212, 210, 210);
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.alert.alert-danger {
+  background-color: red;
+}
+
+.alert.alert-success {
+  background-color: green;
+}
