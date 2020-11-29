@@ -161,7 +161,7 @@ async function register(e) {
   const username = usernameEle.value,
     password = passwordEle.value;
 
-  if (ui.validate([username, password], usernameEle, passwordEle)) {
+  if (ui.validate(username, password)) {
     Spinner.render(true);
     const userlog = {
       username,
@@ -181,6 +181,7 @@ async function register(e) {
         token: `Kinvey ${_kmd.authtoken}`,
       };
       auth.setUser(userInfo);
+      book.token = userInfo.token;
 
       Spinner.render(false);
       location.hash = '#dashboard';
