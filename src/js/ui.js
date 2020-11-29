@@ -1,5 +1,7 @@
 class UI {
-  constructor() {}
+  constructor() {
+    this.content = document.querySelector('.content');
+  }
 
   getFormFields() {
     const titleEle = document.querySelector('#title'),
@@ -15,14 +17,12 @@ class UI {
     };
   }
 
-  showMessgae(className, message) {
-    // create Dom
+  showMessenge(className, message) {
     const div = document.createElement('div');
     div.className = `alert ${className}`;
     div.innerHTML = message;
 
-    const container = content.parentElement;
-    container.insertBefore(div, content);
+    this.content.prepend(div);
 
     // clear message
     setTimeout(() => {
@@ -30,45 +30,50 @@ class UI {
     }, 3000);
   }
 
-  validate(valueArr) {
-    let valid = valueArr.every((inputValue) => inputValue.trim() !== '');
+  validate(...rest) {
+    let valid = rest.every((inputValue) => inputValue.trim() !== '');
     if (!valid) {
-      this.showMessgae('alert-danger', 'Please input all fields');
+      this.showMessenge('alert-danger', 'Please input all fields');
     }
     return valid;
   }
 
-  clearFields() {
-    const inputEle = this.getFormFields();
-    for (let input in inputEle) {
-      inputEle[input].value = '';
-    }
+  clearFields(...rest) {
+    rest.forEach((input) => {
+      input.value = '';
+    });
   }
 
-  getBooks(books) {
+  showBooks(books) {
     let output = '';
-    let icon = '';
     books.forEach((book) => {
-      if (location.hash === '#edit') {
-        icon = `
-          <span class="card-icon">
-            <a class=" card-link"  data-id="${book._id}">
-              <i class="fa fa-pencil" id="edit"></i>
-            </a>
-            <a class=" card-link" data-id="${book._id}">
-              <i class="fa fa-remove" id="delete"></i>
-            </a>
-          </span>`;
-      }
       output += `
-          <div class='col'>
+          <div class='col ${location.hash === '#edit' ? 'md-12' : 'md-6'}'>
             <div class='card-group'>
               <p class='card-author'>Author: <span>${book.author}</span></p>
               <h3 class='card-title'>${book.title}</h3>
               <p class='card-desc'>${book.description}
               </p>
-              <span class="more" id="more">Read more</span>
-              ${icon}
+              ${
+                location.hash === '#edit'
+                  ? '<span class="more" id="more">Read more</span>'
+                  : `<span class="more" id="book-detail" data-id=${book._id}>Read more</span>`
+              }
+              
+              ${
+                location.hash === '#edit'
+                  ? `
+                  <span class="card-icon">
+                    <a class=" card-link"  data-id="${book._id}">
+                      <i class="fa fa-pencil" id="edit"></i>
+                    </a>
+                    <a class=" card-link" data-id="${book._id}">
+                      <i class="fa fa-remove" id="delete"></i>
+                    </a>
+                  </span>
+                  `
+                  : ''
+              }
             </div>
           </div>
         `;
@@ -89,10 +94,15 @@ class UI {
         btnAdd.parentElement.insertBefore(clearInput, null);
       }
     } else {
-      const arrEle = this.getFormFields();
+      const {
+        titleEle,
+        authorEle,
+        descriptionEle,
+        idEle,
+      } = this.getFormFields();
       btnAdd.value = 'Add Book';
       document.querySelector('#cancel-edit').remove();
-      ui.clearFields(arrEle);
+      ui.clearFields(titleEle, authorEle, descriptionEle, idEle);
     }
   }
 
@@ -103,6 +113,23 @@ class UI {
     } else {
       e.innerText = 'Read more';
     }
+  }
+
+  fillForm(e) {
+    const id = e.parentElement.dataset.id;
+    const cardGroup = e.parentElement.parentElement.parentElement,
+      title = cardGroup.querySelector('.card-title').innerHTML,
+      author = cardGroup.querySelector('.card-author span').innerHTML,
+      description = cardGroup.querySelector('.card-desc').innerHTML;
+
+    const { titleEle, authorEle, descriptionEle, idEle } = this.getFormFields();
+
+    titleEle.value = title;
+    authorEle.value = author;
+    descriptionEle.value = description;
+    idEle.value = id;
+
+    this.changeButton('edit');
   }
 }
 

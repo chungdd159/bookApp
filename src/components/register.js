@@ -1,21 +1,20 @@
 const Register = {
   render: async () => {
     return `
-      <form class="form-container" id="register">
+      <div class="form-container" >
         <h2 class="form-title">Sign up</h2>
         <div class="form-group">
           <i class="fas fa-user"></i>
-          <input class="form-control" type="text" placeholder="Username" />
+          <input class="form-control" type="text" placeholder="Username" id="username"/>
         </div>
         <div class="form-group">
           <i class="fas fa-lock"></i>
-          <input class="form-control" type="password" placeholder="Password" />
+          <input class="form-control" type="password" placeholder="Password" id="password" />
         </div>
-        <input type="submit" class="btn" value="Register" />
-    </form>
+        <input type="submit" class="btn" value="Register" id="btn-register"/>
+    </div>
     `;
   },
-  after_render: () => {},
 };
 
 export default Register;

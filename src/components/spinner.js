@@ -2,12 +2,12 @@ const Spinner = {
   render: (val) => {
     if (val) {
       const div = document.createElement('div');
-      div.className = 'loader';
+      div.className = 'container-loader';
+      div.innerHTML = `<span class="loader"></span>`;
       const content = document.querySelector('#content');
-      const container = content.querySelector('.form-container');
-      content.insertBefore(div, container);
+      document.body.insertBefore(div, content);
     } else {
-      document.querySelector('.loader').remove();
+      document.querySelector('.container-loader').remove();
     }
   },
 };

@@ -25,11 +25,6 @@ class User {
         headers,
         body,
       });
-
-      if (response.ok === false) {
-        throw `${response.status}: ${response.statusText}`;
-      }
-
       const data = await response.json();
       return data;
     } catch (err) {

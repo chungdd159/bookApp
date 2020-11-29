@@ -1,3 +1,15 @@
+.container-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  z-index: 99;
+}
+
 .loader,
 .loader:after {
   border-radius: 50%;
@@ -6,6 +18,7 @@
 }
 .loader {
   margin: 60px auto;
+  top: 100px;
   font-size: 10px;
   position: relative;
   text-indent: -9999em;

@@ -1,16 +1,21 @@
 class Book {
   constructor() {
-    this.token = '';
+    this.token = localStorage.getItem('userInfo')
+      ? JSON.parse(localStorage.getItem('userInfo')).token
+      : '';
   }
-
   //@route   /appdata/app_key/books
   //desc     get all book
   async getAllBooks(url) {
     const headers = {
       Authorization: this.token,
     };
+
     try {
-      const response = await fetch(url, { method: 'GET', headers });
+      const response = await fetch(url, {
+        method: 'GET',
+        headers,
+      });
 
       if (response.ok === false) {
         throw `${response.status}: ${response.statusText}`;

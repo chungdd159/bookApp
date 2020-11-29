@@ -11,7 +11,6 @@ const Utils = {
 
     request.resource = detailURL[0];
     request.id = detailURL[1];
-
     return request;
   },
 };

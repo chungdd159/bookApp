@@ -1,26 +1,36 @@
+import { url } from '../config/config';
 import * as auth from '../js/auth';
 import { ui } from '../js/ui';
+import { book } from '../api/book';
+import Spinner from './spinner';
 
 class EditBook {
   constructor() {
     this.isEdit = false;
+    this.books = [];
   }
-  render = async () => {
-    const state = await auth.getDataLocal();
-    const { books } = state;
+
+  async getUserBooks() {
+    Spinner.render(true);
+    const { _id } = await auth.getUser();
+    this.books = await book.getAllBooks(
+      `${url.books}/?query={"_acl.creator": "${_id}"}`
+    );
+
+    document.getElementById('content').innerHTML = await this.render();
+    Spinner.render(false);
+  }
+
+  async render() {
     let output = '';
-    if (books.length === 0) {
+    if (this.books.length === 0) {
       output = `<h3 class="col">No book there, create now</h3>`;
     } else {
-      output = ui.getBooks(books);
+      output = ui.showBooks(this.books);
     }
 
-    if (this.isEdit) {
-      return `<h3>edit</h3>`;
-    } else {
-      return `
+    return `
         <div class="container">
-        <a href="#dashboard" class="btn mt-3">Back to dashboard</a>
           <div class='row'>
             <div class="col md-o-2 md-8 mb-3 add-book">
               <div class="form-container">
@@ -54,10 +64,7 @@ class EditBook {
           </div>
         </div>
       `;
-    }
-  };
-
-  after_render = async () => {};
+  }
 }
 
 export const editBook = new EditBook();

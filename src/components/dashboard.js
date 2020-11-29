@@ -1,27 +1,32 @@
 import * as auth from '../js/auth';
 import { ui } from '../js/ui';
+import { book } from '../api/book';
+import { url } from '../config/config';
+import Spinner from './spinner';
+import { editBook } from './edit';
 
 class Dashboard {
   constructor() {
     this.books = [];
   }
+
   render = async () => {
-    const state = await auth.getDataLocal();
-    if (state.books) {
-      this.books = state.books;
-    }
-    let output = '';
-    if (this.books.length === 0) {
-      output = `<h3 class="col">No book there, create now</h3>`;
-    } else {
-      output = ui.getBooks(this.books);
-    }
+    Spinner.render(true);
+    const { _id } = await auth.getUser();
+
+    this.books = await book.getAllBooks(url.books);
+    editBook.books = this.books.filter((book) => book._acl.creator === _id);
+    Spinner.render(false);
 
     return `
       <div class='container'>
         <h3 class ="book-title" >Top newest books</h3>
         <div class = "row">
-            ${output}
+            ${
+              this.books.length === 0
+                ? `<h3 class="col">No book there, create now</h3>`
+                : ui.showBooks(this.books)
+            }
         </div>
       </div>
     `;
