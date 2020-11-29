@@ -115,6 +115,8 @@ header.addEventListener('click', (e) => {
   }
 });
 
+window.addEventListener('unload', auth.removeLocal);
+
 async function login(e) {
   const parentElement = e.parentElement,
     usernameEle = parentElement.querySelector('#username'),
