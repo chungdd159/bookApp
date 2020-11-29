@@ -79,11 +79,11 @@ content.addEventListener('click', (e) => {
   switch (e.target.id) {
     // listen for login
     case 'btn-login':
-      login(e.target);
+      loginRegister(e.target);
       break;
     // listen for register
     case 'btn-register':
-      register(e.target);
+      loginRegister(e.target);
       break;
     // listen for submit book
     case 'submit-book':
@@ -117,7 +117,7 @@ header.addEventListener('click', (e) => {
 
 window.addEventListener('unload', auth.removeLocal);
 
-async function login(e) {
+async function loginRegister(e) {
   const parentElement = e.parentElement,
     usernameEle = parentElement.querySelector('#username'),
     passwordEle = parentElement.querySelector('#password');
@@ -132,43 +132,13 @@ async function login(e) {
       password,
     };
 
-    const userdata = await user.loginUser(url.login, userlog);
-    if (userdata.error) {
-      Spinner.render(false);
-      ui.showMessenge('alert-danger', 'Invalid credential');
-      ui.clearFields(usernameEle, passwordEle);
+    let userdata;
+    if (e.id === 'btn-login') {
+      userdata = await user.loginUser(url.login, userlog);
     } else {
-      const { username, _id, _kmd } = userdata;
-      const userInfo = {
-        username,
-        _id,
-        token: `Kinvey ${_kmd.authtoken}`,
-      };
-      auth.setUser(userInfo);
-      book.token = userInfo.token;
-
-      Spinner.render(false);
-      location.hash = '#dashboard';
+      userdata = await user.registerUser(url.register, userlog);
     }
-  }
-}
 
-async function register(e) {
-  const parentElement = e.parentElement,
-    usernameEle = parentElement.querySelector('#username'),
-    passwordEle = parentElement.querySelector('#password');
-
-  const username = usernameEle.value,
-    password = passwordEle.value;
-
-  if (ui.validate(username, password)) {
-    Spinner.render(true);
-    const userlog = {
-      username,
-      password,
-    };
-
-    const userdata = await user.registerUser(url.register, userlog);
     if (userdata.error) {
       Spinner.render(false);
       ui.showMessenge('alert-danger', 'Invalid credential');
